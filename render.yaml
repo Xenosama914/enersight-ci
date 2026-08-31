@@ -1,0 +1,30 @@
+# Render Blueprint - https://render.com/docs/blueprint-spec
+# Deploie le frontend Vite (dossier frontend/) en site statique.
+services:
+  - type: web
+    name: enersight-ci-frontend
+    runtime: static
+    # Build lance depuis la racine du depot, puis on entre dans frontend/.
+    buildCommand: cd frontend && npm ci && npm run build
+    staticPublishPath: ./frontend/dist
+    # Reecriture SPA: toute route inconnue sert index.html (react-router prend le relais).
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      # Les assets Vite sont hashes: cache long et immuable.
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+    envVars:
+      - key: NODE_VERSION
+        value: "20.18.0"
+      # Renseignez ces valeurs dans le dashboard Render quand le backend existera.
+      # Elles sont lues au moment du build (prefixe VITE_ obligatoire).
+      - key: VITE_API_URL
+        sync: false
+      - key: VITE_SUPABASE_URL
+        sync: false
+      - key: VITE_SUPABASE_ANON_KEY
+        sync: false

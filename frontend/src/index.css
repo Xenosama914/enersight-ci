@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Tokens: voir DESIGN.md section 3. Mode clair verrouille en v1.
+ * Les valeurs .dark sont definies mais la classe n'est pas activee par l'app.
+ */
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 209 75% 17%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 94%;
+    --secondary-foreground: 209 75% 17%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 19% 38%;
+
+    --accent: 210 40% 94%;
+    --accent-foreground: 209 75% 17%;
+
+    --destructive: 0 72% 42%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214 32% 88%;
+    --input: 214 32% 86%;
+    --ring: 37 70% 42%;
+
+    --radius: 0.625rem;
+
+    --brand: 209 75% 17%;
+    --gold: 37 70% 42%;
+    --gold-strong: 37 72% 34%;
+
+    --pos: 160 84% 24%;
+    --neg: 0 72% 42%;
+    --warn: 28 80% 34%;
+    --sev-high: 19 88% 42%;
+    --info: 200 96% 30%;
+
+    --chart-1: 209 75% 30%;
+    --chart-2: 37 70% 45%;
+    --chart-3: 190 55% 34%;
+    --chart-4: 215 16% 55%;
+    --chart-5: 258 28% 46%;
+  }
+
+  .dark {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 96%;
+    --card: 222 40% 9%;
+    --card-foreground: 210 40% 96%;
+    --popover: 222 40% 9%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 205 70% 60%;
+    --primary-foreground: 222 47% 8%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 96%;
+    --muted: 217 33% 14%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 96%;
+    --destructive: 0 63% 50%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 20%;
+    --input: 217 33% 22%;
+    --ring: 37 74% 55%;
+    --gold: 37 74% 55%;
+    --gold-strong: 37 74% 62%;
+    --pos: 160 70% 45%;
+    --neg: 0 63% 55%;
+    --warn: 33 80% 52%;
+    --sev-high: 21 88% 58%;
+    --info: 200 90% 55%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans text-sm antialiased;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Chiffres, montants, codes: mono tabulaire. Voir DESIGN.md section 2. */
+  .num {
+    font-family: theme("fontFamily.mono");
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+}
+
+@layer utilities {
+  .page-enter {
+    animation: fade-in-up 0.18s ease-out both;
+  }
+}
+
+/* skill section 6.B: reduced motion coupe les transitions non essentielles */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
